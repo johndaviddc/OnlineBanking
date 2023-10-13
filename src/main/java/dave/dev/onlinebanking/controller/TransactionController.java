@@ -30,4 +30,11 @@ public class TransactionController {
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
+
+    @GetMapping("/{transactionId}")
+    public ResponseEntity<Transaction> getTransactionById(@PathVariable Long transactionId) {
+        return transactionService.getTransactionById(transactionId)
+                .map(transaction -> new ResponseEntity<>(transaction, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }
